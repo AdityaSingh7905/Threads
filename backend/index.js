@@ -21,7 +21,6 @@ app.use(
   })
 );
 
-app.options("*", cors());
 app.use(morgan("common")); // logging http requests details
 app.use(express.json());
 
