@@ -21,12 +21,13 @@ app.use(
       "https://threads-sand.vercel.app",
       "https://threads-adityasingh7905s-projects.vercel.app",
     ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
 
+app.options("*", cors());
 app.use(morgan("common")); // logging http requests details
 app.use(express.json());
 
