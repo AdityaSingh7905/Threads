@@ -4,9 +4,11 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   experimental: {
+    serverActions: true,
     serverComponentsExternalPackages: ["mongoose"],
   },
   images: {
+    domains: ["utfs.io"],
     remotePatterns: [
       {
         protocol: "https",

@@ -16,8 +16,9 @@ import {
 
 import { CommentValidation } from "@/lib/validations/threads";
 import { usePathname, useRouter } from "next/navigation";
-import { addCommentToThread } from "@/lib/actions/thread.actions";
 import Image from "next/image";
+
+const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:8000";
 
 interface Props {
   threadId: string;
@@ -27,7 +28,7 @@ interface Props {
 
 const Comments = ({ threadId, currentUserImg, currentUserId }: Props) => {
   const router = useRouter();
-  const pathname = usePathname();
+  const pathname = usePathname(); // reads current url's pathname
   const form = useForm<z.infer<typeof CommentValidation>>({
     resolver: zodResolver(CommentValidation),
     defaultValues: {
@@ -36,9 +37,22 @@ const Comments = ({ threadId, currentUserImg, currentUserId }: Props) => {
   });
 
   async function onSubmit(values: z.infer<typeof CommentValidation>) {
-    console.log("CurrentUser ID: ", currentUserId);
-    await addCommentToThread(threadId, values.threads, currentUserId, pathname);
+    // console.log("CurrentUser ID: ", currentUserId);
+
+    await fetch(`${BACKEND_URL}/thread/comment`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        threadId,
+        commentText: values.threads,
+        userId: currentUserId,
+      }),
+    });
+
     form.reset();
+    router.refresh();
   }
 
   return (
@@ -55,7 +69,7 @@ const Comments = ({ threadId, currentUserImg, currentUserId }: Props) => {
                   alt="Profile image"
                   width={48}
                   height={48}
-                  className="rounded-full object-cover"
+                  className="aspect-square rounded-full object-cover"
                 />
               </FormLabel>
               <FormControl className="border-none bg-transparent">

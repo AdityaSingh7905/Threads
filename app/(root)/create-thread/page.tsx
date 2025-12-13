@@ -1,16 +1,23 @@
 "use server";
-
 import PostThread from "@/components/forms/PostThread";
-import { fetchUser } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { BackgroundTaskOut } from "svix";
+
+const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:8000";
 
 async function Page() {
   const user = await currentUser();
   if (!user) redirect("/sign-in");
-  const userInfo = await fetchUser(user.id);
-//   console.log(userInfo);
-  if (!userInfo.onboarded) redirect("/onBoarding");
+
+  const res = await fetch(`${BACKEND_URL}/user/details/${user.id}`);
+  if (!res.ok) {
+    throw new Error("Error fetching user Details!!");
+  }
+
+  const userInfo = await res.json();
+  if (!userInfo?.onboarded) redirect("/onBoarding");
+
   return (
     <>
       <h1 className="head-text">Create Threads</h1>;

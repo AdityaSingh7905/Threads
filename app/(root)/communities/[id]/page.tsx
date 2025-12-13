@@ -4,15 +4,22 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { communityTabs } from "@/constants";
 import Image from "next/image";
 import ThreadsTab from "@/components/shared/ThreadsTab";
-import { fetchCommunityDetails } from "@/lib/actions/community.actions";
 import UserCard from "@/components/cards/UserCard";
+import { redirect } from "next/navigation";
+
+const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:8000";
 
 const Page = async ({ params }: { params: { id: string } }) => {
   const user = await currentUser();
 
-  if (!user) return null;
+  if (!user) redirect("/sign-in");
 
-  const communityDetails = await fetchCommunityDetails(params.id);
+  const res = await fetch(`${BACKEND_URL}/community/details/${params.id}`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch community details...");
+  }
+
+  const communityDetails = await res.json();
 
   return (
     <section>
@@ -36,7 +43,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
                   alt={tab.label}
                   width={24}
                   height={24}
-                  className="object-contain"
+                  className="aspect-square object-contain"
                 />
                 <p className="max-sm:hidden">{tab.label}</p>
                 {tab.label === "Threads" && (

@@ -32,14 +32,14 @@ function Searchbar({ routeType }: Props) {
         alt="search"
         width={24}
         height={24}
-        className="object-contain"
+        className="aspect-square object-contain"
       />
       <Input
         id="text"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         placeholder={`${
-          routeType !== "/search" ? "Search communities" : "Search Users"
+          routeType !== "search" ? "Search communities" : "Search Users"
         }`}
         className="no-focus searchbar_input"
       />

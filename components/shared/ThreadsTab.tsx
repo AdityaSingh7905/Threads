@@ -1,7 +1,7 @@
-import { fetchUserPosts } from "@/lib/actions/user.actions";
 import { redirect } from "next/navigation";
 import ThreadCard from "../cards/ThreadCard";
-import { fetchCommunityPosts } from "@/lib/actions/community.actions";
+
+const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:8000";
 
 interface Props {
   currentUserId: string;
@@ -12,9 +12,24 @@ interface Props {
 const ThreadsTab = async ({ currentUserId, accountId, accountType }: Props) => {
   let result;
   if (accountType === "Community") {
-    result = await fetchCommunityPosts(accountId);
+    const res = await fetch(
+      `${BACKEND_URL}/community/communityPosts/${accountId}`
+    );
+    if (!res.ok) {
+      throw new Error("Failed to fetch community posts...");
+    }
+
+    result = await res.json();
+
+    // console.log("community result: ", result);
   } else {
-    result = await fetchUserPosts(accountId);
+    const res = await fetch(`${BACKEND_URL}/user/posts/${accountId}`);
+    if (!res.ok) {
+      throw new Error("Failed to fetch user posts...");
+    }
+
+    result = await res.json();
+    // console.log("user result: ", result);
   }
 
   if (!result) redirect("/");
@@ -37,7 +52,21 @@ const ThreadsTab = async ({ currentUserId, accountId, accountType }: Props) => {
                   id: thread.author.id,
                 }
           }
-          community={thread.community} // todo
+          community={
+            accountType === "Community"
+              ? {
+                  name: result.name,
+                  id: result.id,
+                  image: result.image,
+                }
+              : thread.community
+              ? {
+                  id: thread.community.id,
+                  name: thread.community.name,
+                  image: thread.community.image,
+                }
+              : null
+          }
           createdAt={thread.createdAt}
           comments={thread.children}
         />

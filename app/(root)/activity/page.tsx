@@ -1,17 +1,28 @@
-import { fetchUser, getActivity } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:8000";
+
 const Page = async () => {
   const user = await currentUser();
-  if (!user) return null;
+  if (!user) redirect("/sign-in");
 
-  const userInfo = await fetchUser(user.id);
+  const res = await fetch(`${BACKEND_URL}/user/details/${user.id}`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch user details...");
+  }
+
+  const userInfo = await res.json();
   if (!userInfo?.onboarded) redirect("/onBoarding");
 
-  const activity = await getActivity(userInfo._id);
+  const act = await fetch(`${BACKEND_URL}/user/activity/${userInfo._id}`);
+  if (!act.ok) {
+    throw new Error("Failed to fetch activity details...");
+  }
+
+  const activity = await act.json();
   return (
     <section>
       <h1 className="head-text mb-10">Activity</h1>
@@ -19,15 +30,15 @@ const Page = async () => {
       <section>
         {activity.length > 0 ? (
           <>
-            {activity.map((activity) => (
+            {activity.map((activity: any) => (
               <Link key={activity._id} href={`/thread/${activity.parentId}`}>
-                <article className="activity-card">
+                <article className="activity-card mb-2">
                   <Image
                     src={activity.author.image}
                     alt="profile picture"
                     width={20}
                     height={20}
-                    className="rounded-full object-cover"
+                    className="aspect-square rounded-full object-cover"
                   />
                   <p className="!text-small-regular text-gray-1">
                     <span className="mr-1 text-primary-500">

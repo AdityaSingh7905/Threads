@@ -5,8 +5,7 @@ import Searchbar from "../../../components/shared/SearchBar";
 import Pagination from "../../../components/shared/Pagination";
 import CommunityCard from "../../../components/cards/CommunityCard";
 
-import { fetchUser } from "../../../lib/actions/user.actions";
-import { fetchCommunities } from "../../../lib/actions/community.actions";
+const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:8000";
 
 async function Page({
   searchParams,
@@ -14,16 +13,28 @@ async function Page({
   searchParams: { [key: string]: string | undefined };
 }) {
   const user = await currentUser();
-  if (!user) return null;
+  if (!user) redirect("/sign-in");
 
-  const userInfo = await fetchUser(user.id);
+  const res = await fetch(`${BACKEND_URL}/user/details/${user.id}`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch user details...");
+  }
+
+  const userInfo = await res.json();
   if (!userInfo?.onboarded) redirect("/onBoarding");
 
-  const result = await fetchCommunities({
-    searchString: searchParams.q,
-    pageNumber: searchParams?.page ? +searchParams.page : 1,
-    pageSize: 25,
-  });
+  const searchString = searchParams.q || "";
+  const pageNumber = searchParams?.page ? +searchParams.page : 1;
+  const pageSize = 25;
+
+  const result = await fetch(
+    `${BACKEND_URL}/community/community?searchString=${searchString}&pageNumber=${pageNumber}&pageSize=${pageSize}`
+  );
+  if (!result.ok) {
+    throw new Error("Failed to fetch communities...");
+  }
+
+  const communities = await result.json();
 
   return (
     <>
@@ -32,11 +43,11 @@ async function Page({
         <Searchbar routeType="communities" />
       </div>
       <section className="mt-9 flex flex-wrap gap-4">
-        {result.communities.length === 0 ? (
-          <p className="no-result">No Result</p>
+        {communities.communities.length === 0 ? (
+          <p className="no-result mx-auto">No Result</p>
         ) : (
           <>
-            {result.communities.map((community) => (
+            {communities.communities.map((community: any) => (
               <CommunityCard
                 key={community.id}
                 id={community.id}
@@ -53,7 +64,7 @@ async function Page({
       <Pagination
         path="communities"
         pageNumber={searchParams?.page ? +searchParams.page : 1}
-        isNext={result.isNext}
+        isNext={communities.isNext}
       />
     </>
   );

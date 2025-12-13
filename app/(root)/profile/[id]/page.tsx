@@ -1,5 +1,4 @@
 import ProfileHeader from "@/components/shared/ProfileHeader";
-import { fetchUser } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -7,14 +6,19 @@ import { profileTabs } from "@/constants";
 import Image from "next/image";
 import ThreadsTab from "@/components/shared/ThreadsTab";
 
+const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:8000";
+
 const Page = async ({ params }: { params: { id: string } }) => {
   const user = await currentUser();
 
-  if (!user) return null;
+  if (!user) redirect("/sign-in");
 
-  const userInfo = await fetchUser(params.id);
-  //   console.log(userInfo);
+  const res = await fetch(`${BACKEND_URL}/user/details/${params.id}`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch user details...");
+  }
 
+  const userInfo = await res.json();
   if (!userInfo?.onboarded) redirect("/onBoarding");
 
   return (
@@ -38,7 +42,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
                   alt={tab.label}
                   width={24}
                   height={24}
-                  className="object-contain"
+                  className="aspect-square object-cover"
                 />
                 <p className="max-sm:hidden">{tab.label}</p>
                 {tab.label === "Threads" && (
