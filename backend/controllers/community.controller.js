@@ -7,8 +7,6 @@ async function createCommunity(req, res) {
   try {
     const { id, name, username, image, bio, createdById } = req.body;
 
-    await mongoConnect();
-
     const user = await User.findOne({ id: createdById });
     if (!user) return res.status(404).json({ error: "User not found" });
 
@@ -37,8 +35,6 @@ async function fetchCommunityDetails(req, res) {
   try {
     const userId = req.params.id;
 
-    await mongoConnect();
-
     const community = await Community.findOne({ id: userId }).populate([
       "createdBy",
       {
@@ -61,8 +57,6 @@ async function fetchCommunityDetails(req, res) {
 async function fetchCommunityPosts(req, res) {
   try {
     const userId = req.params.id;
-
-    await mongoConnect();
 
     const posts = await Community.findById(userId).populate({
       path: "threads",
@@ -96,8 +90,6 @@ async function fetchCommunityPosts(req, res) {
 
 async function fetchCommunities(req, res) {
   try {
-    await mongoConnect();
-
     const {
       searchString = "",
       pageNumber = 1,
@@ -135,8 +127,6 @@ async function addMemberToCommunity(req, res) {
   try {
     const { communityId, memberId } = req.body;
 
-    await mongoConnect();
-
     const community = await Community.findOne({ id: communityId });
     // console.log("Community: ", community);
     if (!community)
@@ -172,8 +162,6 @@ async function removeUserFromCommunity(req, res) {
   try {
     const { userId, communityId } = req.body;
 
-    await mongoConnect();
-
     const user = await User.findOne({ id: userId }, { _id: 1 });
     const community = await Community.findOne({ id: communityId }, { _id: 1 });
 
@@ -201,8 +189,6 @@ async function updateCommunityInfo(req, res) {
   try {
     const { communityId, name, username, image } = req.body;
 
-    await mongoConnect();
-
     const updated = await Community.findOneAndUpdate(
       { id: communityId },
       { name, username, image }
@@ -219,8 +205,6 @@ async function updateCommunityInfo(req, res) {
 
 async function deleteCommunity(req, res) {
   try {
-    await mongoConnect();
-
     const communityId = req.params.id;
     // console.log("Community Id: ", communityId);
     const deleted = await Community.findOneAndDelete({ id: communityId });

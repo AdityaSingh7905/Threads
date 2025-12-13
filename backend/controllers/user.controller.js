@@ -5,8 +5,6 @@ const Community = require("./../models/community.model");
 
 async function updateUser(req, res) {
   try {
-    await mongoConnect();
-
     const { userId, username, name, bio, image } = req.body;
 
     if (!userId) {
@@ -39,8 +37,6 @@ async function updateUser(req, res) {
 
 async function fetchUser(req, res) {
   try {
-    await mongoConnect();
-
     const userId = req.params.id;
     // console.log("UserId: ", userId);
 
@@ -62,8 +58,6 @@ async function fetchUser(req, res) {
 
 async function fetchUsers(req, res) {
   try {
-    await mongoConnect();
-
     // Extracting parameters with defaults
     const userId = req.query.userId;
     const searchString = req.query.searchString || "";
@@ -114,8 +108,6 @@ async function fetchUsers(req, res) {
 
 async function getUserActivity(req, res) {
   try {
-    await mongoConnect();
-
     const userId = req.params.id;
 
     // we will find all the threads created by the user

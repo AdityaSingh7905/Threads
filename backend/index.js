@@ -7,9 +7,12 @@ const morgan = require("morgan");
 const userRouter = require("./routers/user.router");
 const threadRouter = require("./routers/thread.router");
 const communityRouter = require("./routers/community.router");
+const { mongoConnect } = require("./db");
 
 const app = express();
 dotenv.config();
+
+mongoConnect();
 
 app.use(
   cors({

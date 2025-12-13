@@ -5,8 +5,6 @@ const Community = require("./../models/community.model");
 
 async function createThread(req, res) {
   try {
-    await mongoConnect();
-
     const { text, author, communityId } = req.body;
     const communityIdObject = await Community.findOne(
       {
@@ -46,8 +44,6 @@ async function createThread(req, res) {
 
 async function fetchThreads(req, res) {
   try {
-    await mongoConnect();
-
     const pageNumber = req.query.pageNumber || 1;
     const pageSize = req.query.pageSize || 20;
 
@@ -90,8 +86,6 @@ async function fetchThreads(req, res) {
 
 async function fetchThreadById(req, res) {
   try {
-    await mongoConnect();
-
     const id = req.params.id;
 
     const thread = await Thread.findById(id)
@@ -136,8 +130,6 @@ async function fetchThreadById(req, res) {
 
 async function fetchAllChildThreads(req, res) {
   try {
-    await mongoConnect();
-
     const threadId = req.query.threadId;
 
     const childThreads = await Thread.find({ parentId: threadId });
@@ -159,8 +151,6 @@ async function fetchAllChildThreads(req, res) {
 
 async function addCommentToThread(req, res) {
   try {
-    await mongoConnect();
-
     const { threadId, commentText, userId } = req.body;
 
     // Validate
@@ -192,8 +182,6 @@ async function addCommentToThread(req, res) {
 }
 
 async function getDescendantThreads(threadId) {
-  await mongoConnect();
-
   const childThreads = await Thread.find({ parentId: threadId });
   const descendantThreads = [];
 
@@ -207,8 +195,6 @@ async function getDescendantThreads(threadId) {
 
 async function deleteThread(req, res) {
   try {
-    await mongoConnect();
-
     const id = req.params.id;
     // console.log("Thread id: ", id);
 
