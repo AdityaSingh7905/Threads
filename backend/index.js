@@ -26,6 +26,7 @@ app.use(
   })
 );
 
+app.options("*", cors());
 app.use(morgan("common")); // logging http requests details
 app.use(express.json());
 
@@ -33,7 +34,7 @@ app.use("/user", userRouter);
 app.use("/thread", threadRouter);
 app.use("/community", communityRouter);
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
