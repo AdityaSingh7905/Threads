@@ -16,7 +16,11 @@ mongoConnect();
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: [
+      "http://localhost:3000",
+      "https://threads-sand.vercel.app/",
+      "https://threads-adityasingh7905s-projects.vercel.app/",
+    ],
   })
 );
 app.use(morgan("common")); // logging http requests details
