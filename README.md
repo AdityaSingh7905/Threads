@@ -1,36 +1,155 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## 🧵 Threads with Gemini
+A full-stack social media platform where users can create threads, comment, interact with communities, and even generate threads using Gemini AI.
+Built with modern web technologies, focused on scalability, performance, and clean UI.
 
-## Getting Started
+## 🚀 Live Demo
 
-First, run the development server:
+# 🔗 Live Project:
+👉 [https://threads-sand.vercel.app](https://threads-sand.vercel.app/)
+👉 [https://threads-adityasingh7905s-projects.vercel.app](https://threads-adityasingh7905s-projects.vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# 🔗 Backend API:
+👉 [https://your-backend.onrender.com](https://threads-sl2t.onrender.com)
+
+
+## ✨ Features
+
+## 🔐 Authentication & User Management
+- Secure authentication using Clerk
+- Webhooks for user & community synchronization
+- Zod for validation
+- Uploadthing for profile image upload
+
+## 🧵 Threads
+- Create, view, and delete threads
+- Comment on threads
+- Nested commenting (comment on comments)
+- Generate threads using Gemini AI prompts
+
+## 👥 Communities
+- Create communities
+- Join and interact with other communities
+- Community-based threads & discussions
+- Community sync using Clerk webhooks
+
+## 🔎 Search & Pagination
+- Search users with pagination
+- Search communities with pagination
+- Suggested users and communities
+
+## 🔔 Activity Feed
+- Activity page showing:
+  - Who commented on your threads
+- Recent interactions
+
+## 🎨 UI & UX
+- Responsive & visually appealing interface
+- Built with Next.js, Tailwind CSS, and shadcn/ui
+
+## 🧠 AI Integration (Gemini)
+- Users can generate threads using Gemini AI prompts
+- Gemini API is integrated in the backend to create meaningful and engaging content
+
+
+## 🛠 Tech Stack
+
+## Frontend
+- Next.js (App Router)
+- TypeScript
+- Tailwind CSS
+- shadcn/ui – UI components
+- Clerk – Authentication & Webhooks
+- Zod – Form & data validation
+- UploadThing – Profile image uploads
+
+## Backend
+- Node.js
+- Express.js
+- MongoDB + Mongoose
+- Gemini API – AI-powered thread creation
+
+
+## 📦 Deployment
+
+# Frontend: Vercel
+# Backend: Render
+# Database: MongoDB Atlas
+
+
+## ⚙️ Run Locally
+# 1️⃣ Clone the Repository
+``` bash
+git clone [https://github.com/AdityaSingh7905/Threads](https://github.com/AdityaSingh7905/Threads)
+cd Threads
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# 2️⃣ Setup Frontend
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Create .env.local file:
+```bash
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_key
+CLERK_SECRET_KEY=your_secret_key
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/onBoarding
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
+NEXT_CLERK_WEBHOOK_SECRET=your_webhook_secret
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+GEMINI_API_KEY=your_gemini_api_key
 
-## Learn More
+NEXT_PUBLIC_MONGODB_URL=your_mongodb_url
+NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
 
-To learn more about Next.js, take a look at the following resources:
+UPLOADTHING_SECRET=your_uploadthing_secret_key
+UPLOADTHING_APP_ID=your_uploadthing_id
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Run frontend:
+```bash
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Frontend will run on:
+```bash
+http://localhost:3000
+```
 
-## Deploy on Vercel
+# 3️⃣ Setup Backend
+```bash
+cd backend
+npm install
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Create .env file in backend/:
+```bash
+PORT=8000
+MONGO_URI=your_mongodb_connection_string
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Start backend server:
+```bash
+npm run start or node index.js or nodemon index.js
+```
+
+Backend will run on:
+```bash
+http://localhost:8000
+```
+
+
+## 🚧 Future Improvements
+- Likes & reactions
+- Notifications
+- Image uploads in threads
+- Admin moderation panel
+
+## 🤝 Contributing
+Contributions are welcome!
+Feel free to open an issue or submit a pull request.
+
+## 👨‍💻 Author
+Aditya Singh
+GitHub: [@AdityaSingh7905](https://github.com/AdityaSingh7905)
