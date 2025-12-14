@@ -9,7 +9,7 @@ Built with modern web technologies, focused on scalability, performance, and cle
 👉 [https://threads-adityasingh7905s-projects.vercel.app](https://threads-adityasingh7905s-projects.vercel.app/)
 
 ## 🔗 Backend API:
-👉 [https://your-backend.onrender.com](https://threads-sl2t.onrender.com)
+👉 [https://threads-sl2t.onrender.com](https://threads-sl2t.onrender.com)
 
 
 ## ✨ Features
