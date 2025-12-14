@@ -16,10 +16,13 @@ mongoConnect();
 
 app.use(
   cors({
-    origin: true,
+    origin: true,        // ✅ allow all origins
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
+
 
 app.use(morgan("common")); // logging http requests details
 app.use(express.json());
