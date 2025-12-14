@@ -71,7 +71,7 @@ Built with modern web technologies, focused on scalability, performance, and cle
 ## ⚙️ Run Locally
 ## 1️⃣ Clone the Repository
 ``` bash
-git clone [https://github.com/AdityaSingh7905/Threads](https://github.com/AdityaSingh7905/Threads)
+git clone https://github.com/AdityaSingh7905/Threads
 cd Threads
 ```
 
