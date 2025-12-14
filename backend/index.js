@@ -14,15 +14,7 @@ dotenv.config();
 
 mongoConnect();
 
-app.use(
-  cors({
-    origin: true,        // ✅ allow all origins
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
-  })
-);
-
+app.use(cors());
 
 app.use(morgan("common")); // logging http requests details
 app.use(express.json());
