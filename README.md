@@ -4,11 +4,11 @@ Built with modern web technologies, focused on scalability, performance, and cle
 
 ## 🚀 Live Demo
 
-# 🔗 Live Project:
+## 🔗 Live Project:
 👉 [https://threads-sand.vercel.app](https://threads-sand.vercel.app/)
 👉 [https://threads-adityasingh7905s-projects.vercel.app](https://threads-adityasingh7905s-projects.vercel.app/)
 
-# 🔗 Backend API:
+## 🔗 Backend API:
 👉 [https://your-backend.onrender.com](https://threads-sl2t.onrender.com)
 
 
@@ -68,22 +68,14 @@ Built with modern web technologies, focused on scalability, performance, and cle
 - MongoDB + Mongoose
 - Gemini API – AI-powered thread creation
 
-
-## 📦 Deployment
-
-# Frontend: Vercel
-# Backend: Render
-# Database: MongoDB Atlas
-
-
 ## ⚙️ Run Locally
-# 1️⃣ Clone the Repository
+## 1️⃣ Clone the Repository
 ``` bash
 git clone [https://github.com/AdityaSingh7905/Threads](https://github.com/AdityaSingh7905/Threads)
 cd Threads
 ```
 
-# 2️⃣ Setup Frontend
+## 2️⃣ Setup Frontend
 ```bash
 npm install
 ```
@@ -117,7 +109,7 @@ Frontend will run on:
 http://localhost:3000
 ```
 
-# 3️⃣ Setup Backend
+## 3️⃣ Setup Backend
 ```bash
 cd backend
 npm install
@@ -129,9 +121,11 @@ PORT=8000
 MONGO_URI=your_mongodb_connection_string
 ```
 
-Start backend server:
+Start backend server:(use anyone of them)
 ```bash
-npm run start or node index.js or nodemon index.js
+npm run start
+node index.js
+nodemon index.js
 ```
 
 Backend will run on:
