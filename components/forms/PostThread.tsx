@@ -27,7 +27,7 @@ import {
   DialogTitle,
 } from "../ui/dialog";
 
-const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:8000";
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000";
 
 function PostThread({ userId }: { userId: string }) {
   const router = useRouter();
@@ -77,12 +77,13 @@ function PostThread({ userId }: { userId: string }) {
         text: values.thread,
         author: userId,
         communityId: organization ? organization.id : null,
-        path: pathname,
       }),
     });
 
     if (!res.ok) {
-      throw new Error("Error creating post...");
+      const errorText = await res.text();
+      console.error("Create thread failed:", res.status, errorText);
+      throw new Error("Create thread failed");
     }
 
     router.push("/");

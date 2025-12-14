@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 
-const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:8000";
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000";
 
 export async function deleteThread(id: string, path: string) {
   const res = await fetch(`${BACKEND_URL}/thread/delete/${id}`, {

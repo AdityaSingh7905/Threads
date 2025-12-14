@@ -3,7 +3,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import UserCard from "../cards/UserCard";
 import { redirect } from "next/navigation";
 
-const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:8000";
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000";
 
 async function RightSidebar() {
   const user = await currentUser();

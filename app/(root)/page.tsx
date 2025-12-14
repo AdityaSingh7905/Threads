@@ -4,7 +4,7 @@ import ThreadCard from "@/components/cards/ThreadCard";
 import { redirect, useRouter } from "next/navigation";
 import Pagination from "@/components/shared/Pagination";
 
-const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:8000";
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000";
 
 async function Page({ searchParams }: any) {
   const user = await currentUser();

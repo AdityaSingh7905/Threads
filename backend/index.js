@@ -14,7 +14,6 @@ dotenv.config();
 
 mongoConnect();
 
-app.options(/.*/, cors()); // include before other routes
 app.use(cors());
 
 app.use(morgan("common")); // logging http requests details
